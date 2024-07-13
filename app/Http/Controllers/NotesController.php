@@ -15,9 +15,9 @@ class NotesController extends Controller
         $user = auth()->user()->id;
         $notes = Notes::where('user_id', $user)->get();
         if ($notes->isNotEmpty()) {
-            ApiResponse::success($notes, "Success get all notes");
+            ApiResponse::success($notes, 'Success get all notes');
         } else {
-            ApiResponse::error(null, "No notes found");
+            ApiResponse::error(null, 'No notes found');
         }
     }
 
@@ -26,9 +26,9 @@ class NotesController extends Controller
         $user = auth()->user()->id;
         $notes = Notes::where('user_id', $user)->get();
         if ($notes->isNotEmpty()) {
-            ApiResponse::success($notes, "Success get all notes");
+            ApiResponse::success($notes, 'Success get all notes');
         } else {
-            ApiResponse::error(null, "No notes found");
+            ApiResponse::error(null, 'No notes found');
         }
     }
 
