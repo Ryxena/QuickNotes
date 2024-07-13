@@ -17,8 +17,7 @@ return new class extends Migration
             $table->text('content');
             $table->string('image')->nullable();
             $table->enum('status', ['favorite', 'regular'])->default('regular');
-            $table->ulid('users_id');
-            $table->foreignUlid('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignUlid('users_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

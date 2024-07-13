@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property string $categories_id
@@ -31,14 +32,14 @@ class CategoryNote extends Model
 
     protected $table = 'category_note';
 
-    protected $fillable = ['categories_id', 'notes_id'];
+    protected $fillable = ['category_id', 'note_id'];
 
-    public function category()
+    public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'categories_id');
     }
 
-    public function note()
+    public function note(): BelongsTo
     {
         return $this->belongsTo(Note::class, 'notes_id');
     }

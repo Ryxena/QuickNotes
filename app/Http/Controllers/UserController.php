@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\ApiResponse;
+use App\Helper\ApiResponse;
 use App\Models\user;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,8 +20,8 @@ class UserController extends Controller
     public function login(Request $req): \Illuminate\Http\JsonResponse
     {
         $validator = Validator::make($req->all(), [
-            'email' => 'required|email|unique:users',
-            'password' => 'required|confirm|string|min:8',
+            'email' => 'required|email',
+            'password' => 'required|string|min:8',
         ]);
         if ($validator->fails()) {
             return ApiResponse::error('Validation Error', $validator->errors(), 422);

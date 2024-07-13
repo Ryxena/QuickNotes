@@ -43,6 +43,7 @@ class Notes extends Model
         'content',
         'image',
         'category_id',
+        'users_id',
         'status',
     ];
 

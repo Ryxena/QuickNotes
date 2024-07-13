@@ -12,9 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('category_notes', function (Blueprint $table) {
-            $table->ulid('categories_id');
             $table->foreignUlid('category_id')->references('id')->on('categories')->onDelete('cascade');
-            $table->ulid('notes_id');
             $table->foreignUlid('note_id')->references('id')->on('notes')->onDelete('cascade');
             $table->primary(['category_id', 'note_id']);
             $table->timestamps();

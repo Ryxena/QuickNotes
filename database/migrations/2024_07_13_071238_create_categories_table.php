@@ -14,8 +14,7 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->ulid('id')->primary();
             $table->string('name');
-            $table->ulid('users_id');
-            $table->foreignUlid('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignUlid('users_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
