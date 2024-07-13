@@ -13,30 +13,32 @@ class UserController extends Controller
     public function logout(Request $req): \Illuminate\Http\JsonResponse
     {
         $req->user()->currentAccessToken()->delete();
+
         return ApiResponse::success(null, 'Logged out successfully');
     }
 
     public function login(Request $req): \Illuminate\Http\JsonResponse
     {
         $validator = Validator::make($req->all(), [
-            "email" => "required|email|unique:users",
-            "password" => "required|confirm|string|min:8",
+            'email' => 'required|email|unique:users',
+            'password' => 'required|confirm|string|min:8',
         ]);
         if ($validator->fails()) {
-            return ApiResponse::error("Validation Error", $validator->errors(), 422);
+            return ApiResponse::error('Validation Error', $validator->errors(), 422);
         }
         $credentials = $req->only('email', 'password');
-        if(Auth::attempt($credentials)){
+        if (Auth::attempt($credentials)) {
             $user = User::where('id', Auth::user()->id)->first();
             $token = $token = $user->createToken('user-token')->plainTextToken;
+
             return response()->json([
                 'success' => true,
-                'message' => "login successfully",
+                'message' => 'login successfully',
                 'data' => $user,
-                "token" => $token,
+                'token' => $token,
             ], 200);
         } else {
-            return ApiResponse::error("Unauthorized email or password wrong", [], 401);
+            return ApiResponse::error('Unauthorized email or password wrong', [], 401);
         }
 
     }
@@ -44,22 +46,22 @@ class UserController extends Controller
     public function register(Request $req): \Illuminate\Http\JsonResponse
     {
         $validator = Validator::make($req->all(), [
-            "name" => "required|string|max:255",
-            "email" => "required|email|unique:users",
-            "password" => "required|confirm|string|min:8",
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|confirm|string|min:8',
         ]);
         if ($validator->fails()) {
-            return ApiResponse::error("Validation Error", $validator->errors());
+            return ApiResponse::error('Validation Error', $validator->errors());
         }
         $user = new User([
-            "name" => $req->get("name"),
-            "email" => $req->get("email"),
-            "password" => $req->get("passsword"),
+            'name' => $req->get('name'),
+            'email' => $req->get('email'),
+            'password' => $req->get('passsword'),
         ]);
         if ($user->save()) {
             return ApiResponse::success($user, 'User registered successfully', 422);
         } else {
-            return ApiResponse::error("Error When Register A user");
+            return ApiResponse::error('Error When Register A user');
         }
     }
 
@@ -74,7 +76,7 @@ class UserController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return ApiResponse::error("Validation Error", $validator->errors());
+            return ApiResponse::error('Validation Error', $validator->errors());
         }
 
         try {
@@ -97,5 +99,4 @@ class UserController extends Controller
             return ApiResponse::error($e->getMessage());
         }
     }
-
 }

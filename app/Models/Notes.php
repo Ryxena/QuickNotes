@@ -9,8 +9,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
- *
- *
  * @property string $id
  * @property string $title
  * @property string $content
@@ -20,6 +18,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property string $user_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Notes newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Notes newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Notes query()
@@ -32,6 +31,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Notes whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Notes whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Notes whereUsersId($value)
+ *
  * @mixin \Eloquent
  */
 class Notes extends Model
@@ -39,11 +39,11 @@ class Notes extends Model
     use HasFactory, HasUlids;
 
     protected $fillable = [
-        "title",
-        "content",
-        "image",
-        "category_id",
-        "status"
+        'title',
+        'content',
+        'image',
+        'category_id',
+        'status',
     ];
 
     public function user(): BelongsTo
