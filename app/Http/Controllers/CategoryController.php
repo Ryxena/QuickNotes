@@ -18,7 +18,8 @@ class CategoryController extends Controller
             ->orWhere('users_id', $user)
             ->orderBy('name')
             ->get();
-        return ApiResponse::success($categories, "Categories retrieved successfully");
+
+        return ApiResponse::success($categories, 'Categories retrieved successfully');
     }
 
     public function create(Request $request): JsonResponse
@@ -44,11 +45,12 @@ class CategoryController extends Controller
     {
         $user = auth()->user();
         $category = Category::where('id', $id)->where('users_id', $user->id)->first();
-        if (!$category) {
+        if (! $category) {
             return ApiResponse::error('Categories not found');
         }
         $category->name = $request->name;
         $category->save();
+
         return ApiResponse::success($category, 'Success update category name');
     }
 
@@ -56,10 +58,11 @@ class CategoryController extends Controller
     {
         $user = auth()->user();
         $note = Notes::where('id', $id)->where('users_id', $user->id)->firstOrFail();
-        if (!$note) {
+        if (! $note) {
             return ApiResponse::error('Note not found');
         }
         $note->delete();
+
         return ApiResponse::success(null, 'Note deleted successfully');
 
     }

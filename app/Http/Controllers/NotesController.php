@@ -25,12 +25,11 @@ class NotesController extends Controller
         });
 
         if ($notes->isNotEmpty()) {
-            return ApiResponse::success($notes, "Success get all notes");
+            return ApiResponse::success($notes, 'Success get all notes');
         } else {
-            return ApiResponse::error(null, "No notes found");
+            return ApiResponse::error(null, 'No notes found');
         }
     }
-
 
     public function search(Request $request): JsonResponse
     {
@@ -40,11 +39,11 @@ class NotesController extends Controller
             ->where('users_id', $user->id)
             ->when($search, function ($query, $search) {
                 return $query->where(function ($query) use ($search) {
-                    $query->where('title', 'like', '%' . $search . '%')
-                        ->orWhere('content', 'like', '%' . $search . '%')
-                        ->orWhere('status', 'like', '%' . $search . '%')
+                    $query->where('title', 'like', '%'.$search.'%')
+                        ->orWhere('content', 'like', '%'.$search.'%')
+                        ->orWhere('status', 'like', '%'.$search.'%')
                         ->orWhereHas('categories', function ($query) use ($search) {
-                            $query->where('name', 'like', '%' . $search . '%');
+                            $query->where('name', 'like', '%'.$search.'%');
                         });
                 });
             })
@@ -59,9 +58,9 @@ class NotesController extends Controller
             });
 
         if ($notes->isNotEmpty()) {
-            return ApiResponse::success($notes, "Success get all notes");
+            return ApiResponse::success($notes, 'Success get all notes');
         } else {
-            return ApiResponse::error(null, "No notes found");
+            return ApiResponse::error(null, 'No notes found');
         }
     }
 
@@ -73,7 +72,7 @@ class NotesController extends Controller
             'content' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'category_ids' => 'array|exists:categories,id|required',
-            'status' => 'sometimes|string'
+            'status' => 'sometimes|string',
         ]);
 
         if ($validator->fails()) {
@@ -112,10 +111,11 @@ class NotesController extends Controller
     {
         $user = auth()->user();
         $note = Notes::where('id', $id)->where('users_id', $user->id)->firstOrFail();
-        if (!$note) {
+        if (! $note) {
             return ApiResponse::error('Note not found');
         }
         $note->delete();
+
         return ApiResponse::success(null, 'Note deleted successfully');
 
     }
@@ -153,7 +153,6 @@ class NotesController extends Controller
         }
         $note->status = $request->has('status') ? $request->input('status') : 'regular';
 
-
         $note->save();
 
         if ($request->has('category_ids')) {
@@ -167,11 +166,12 @@ class NotesController extends Controller
     {
         $user = auth()->user();
         $note = Notes::where('id', $id)->where('users_id', $user->id)->first();
-        if (!$note) {
+        if (! $note) {
             return ApiResponse::error('Note not found');
         }
         $note->status = 'favorite';
         $note->save();
+
         return ApiResponse::success($note, 'Note favorited successfully');
     }
 
@@ -182,6 +182,7 @@ class NotesController extends Controller
         if ($note->isNotEmpty()) {
             return ApiResponse::success($note, 'List Note favorite');
         }
+
         return ApiResponse::error(null, 'No favorites notes found');
     }
 }

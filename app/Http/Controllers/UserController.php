@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Helper\ApiResponse;
 use App\Models\user;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Http\JsonResponse;
 
 class UserController extends Controller
 {
@@ -100,6 +100,4 @@ class UserController extends Controller
             return ApiResponse::error($e->getMessage());
         }
     }
-
-
 }

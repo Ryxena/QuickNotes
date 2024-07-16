@@ -56,5 +56,4 @@ class Notes extends Model
     {
         return $this->belongsToMany(Category::class, 'category_notes', 'note_id', 'category_id');
     }
-
 }
