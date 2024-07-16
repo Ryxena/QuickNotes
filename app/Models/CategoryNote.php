@@ -30,7 +30,7 @@ class CategoryNote extends Model
 {
     use HasUlids;
 
-    protected $table = 'category_note';
+    protected $table = 'category_notes';
 
     protected $fillable = ['category_id', 'note_id'];
 

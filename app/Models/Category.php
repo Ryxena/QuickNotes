@@ -34,7 +34,7 @@ class Category extends Model
 
     protected $fillable = [
         'name',
-        'users_id',
+        'user_id',
     ];
 
     public function user(): BelongsTo
@@ -44,6 +44,6 @@ class Category extends Model
 
     public function notes(): BelongsToMany
     {
-        return $this->belongsToMany(Notes::class, 'category_note', 'categories_id', 'notes_id');
+        return $this->belongsToMany(Notes::class, 'category_notes', 'category_id', 'notes_id');
     }
 }

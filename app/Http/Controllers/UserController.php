@@ -7,17 +7,18 @@ use App\Models\user;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\JsonResponse;
 
 class UserController extends Controller
 {
-    public function logout(Request $req): \Illuminate\Http\JsonResponse
+    public function logout(Request $req): JsonResponse
     {
         $req->user()->currentAccessToken()->delete();
 
         return ApiResponse::success(null, 'Logged out successfully');
     }
 
-    public function login(Request $req): \Illuminate\Http\JsonResponse
+    public function login(Request $req): JsonResponse
     {
         $validator = Validator::make($req->all(), [
             'email' => 'required|email',
@@ -43,12 +44,12 @@ class UserController extends Controller
 
     }
 
-    public function register(Request $req): \Illuminate\Http\JsonResponse
+    public function register(Request $req): JsonResponse
     {
         $validator = Validator::make($req->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
-            'password' => 'required|confirm|string|min:8',
+            'password' => 'required|confirmed|string|min:8',
         ]);
         if ($validator->fails()) {
             return ApiResponse::error('Validation Error', $validator->errors());
@@ -56,16 +57,16 @@ class UserController extends Controller
         $user = new User([
             'name' => $req->get('name'),
             'email' => $req->get('email'),
-            'password' => $req->get('passsword'),
+            'password' => $req->get('password'),
         ]);
         if ($user->save()) {
-            return ApiResponse::success($user, 'User registered successfully', 422);
+            return ApiResponse::success($user, 'User registered successfully', 200);
         } else {
             return ApiResponse::error('Error When Register A user');
         }
     }
 
-    public function edit(Request $request)
+    public function edit(Request $request): JsonResponse
     {
         $user = auth()->user();
 
@@ -99,4 +100,6 @@ class UserController extends Controller
             return ApiResponse::error($e->getMessage());
         }
     }
+
+
 }
