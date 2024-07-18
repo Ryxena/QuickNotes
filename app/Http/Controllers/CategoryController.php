@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Helper\ApiResponse;
 use App\Models\Category;
-use App\Models\Notes;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;

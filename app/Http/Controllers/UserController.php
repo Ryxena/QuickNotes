@@ -103,6 +103,6 @@ class UserController extends Controller
 
     public function reset(): JsonResponse
     {
-        Return ApiResponse::success(env("MY_EMAIL"), 'Hubungi kontak ini');
+        return ApiResponse::success(env('MY_EMAIL'), 'Hubungi kontak ini');
     }
 }
