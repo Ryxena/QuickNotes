@@ -36,7 +36,6 @@ Route::prefix('v1')->group(function () {
             Route::post('/{id}', [CategoryController::class, 'create']);
             Route::post('update/{id}', [CategoryController::class, 'update']);
             Route::delete('delete/{id}', [CategoryController::class, 'delete']);
-
         });
     });
 });

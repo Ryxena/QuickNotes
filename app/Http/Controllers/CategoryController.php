@@ -54,10 +54,10 @@ class CategoryController extends Controller
         return ApiResponse::success($category, 'Success update category name');
     }
 
-    public function delete(Request $request): JsonResponse
+    public function delete(Request $request, $id): JsonResponse
     {
         $user = auth()->user();
-        $note = Notes::where('id', $id)->where('users_id', $user->id)->firstOrFail();
+        $note = Category::where('id', $id)->where('users_id', $user->id)->first();
         if (! $note) {
             return ApiResponse::error('Note not found');
         }
