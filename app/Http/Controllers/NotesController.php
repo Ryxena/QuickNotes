@@ -82,7 +82,7 @@ class NotesController extends Controller
         $imageContent = null;
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $imageContent = $note->image = $request->file('image')->storeAs(
+            $imageContent = $image->storeAs(
                 'public/content/image',
                 now()->format('YmdHis').'.'.$request->file('image')->getClientOriginalExtension()
             );
