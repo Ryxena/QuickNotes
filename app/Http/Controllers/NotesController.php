@@ -83,9 +83,9 @@ class NotesController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageContent = $note->image = $request->file('image')->storeAs(
-    'public/content/image', 
-    now()->format('YmdHis') . '.' . $request->file('image')->getClientOriginalExtension()
-);
+                'public/content/image',
+                now()->format('YmdHis').'.'.$request->file('image')->getClientOriginalExtension()
+            );
 
         }
 
@@ -146,10 +146,10 @@ class NotesController extends Controller
                 Storage::delete($note->image);
             }
 
-$note->image = $request->file('image')->storeAs(
-    'public/content/image', 
-    now()->format('YmdHis') . '.' . $request->file('image')->getClientOriginalExtension()
-);
+            $note->image = $request->file('image')->storeAs(
+                'public/content/image',
+                now()->format('YmdHis').'.'.$request->file('image')->getClientOriginalExtension()
+            );
         }
         if ($request->filled('title')) {
             $note->title = $request->input('title');
