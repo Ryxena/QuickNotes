@@ -21,7 +21,7 @@ Route::prefix('v1')->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
         Route::prefix('notes')->group(function () {
             Route::get('/', [NotesController::class, 'index']);
-            Route::post('/', [NotesController::class, 'store']);
+            Route::post('/create', [NotesController::class, 'store']);
             Route::get('detail/{id}', [NotesController::class, 'detail']);
             Route::post('update/{id}', [NotesController::class, 'update']);
             Route::delete('delete/{id}', [NotesController::class, 'destroy']);
