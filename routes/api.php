@@ -33,7 +33,7 @@ Route::prefix('v1')->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
         Route::prefix('category')->group(function () {
             Route::get('/', [CategoryController::class, 'index']);
-            Route::post('/{id}', [CategoryController::class, 'create']);
+            Route::post('/create', [CategoryController::class, 'create']);
             Route::post('update/{id}', [CategoryController::class, 'update']);
             Route::delete('delete/{id}', [CategoryController::class, 'delete']);
         });
