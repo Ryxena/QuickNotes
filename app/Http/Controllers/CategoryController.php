@@ -16,7 +16,7 @@ class CategoryController extends Controller
         $categories = Category::where('is_public', true)
             ->orWhere('users_id', $user)
             ->orderBy('name')
-            ->get();
+            ->pluck('name', 'id');
 
         return ApiResponse::success($categories, 'Categories retrieved successfully');
     }

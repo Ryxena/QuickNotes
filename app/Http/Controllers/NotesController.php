@@ -71,7 +71,7 @@ class NotesController extends Controller
             'title' => 'required|string|max:255',
             'content' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'category_ids' => 'array|exists:categories,id|required',
+            'category_ids' => 'array|exists:categories,id|nullable',
             'status' => 'sometimes|string',
         ]);
 
@@ -130,10 +130,10 @@ class NotesController extends Controller
         $note = Notes::where('id', $id)->where('users_id', $user->id)->first();
 
         $validator = Validator::make($request->all(), [
-            'title' => 'required|string|min:3|max:255',
-            'content' => 'required|string|min:3',
+            'title' => 'nullable|string|min:3|max:255',
+            'content' => 'nullable|string|min:3',
             'image' => 'sometimes|nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'category_ids' => 'array|exists:categories,id|required',
+            'category_ids' => 'array|exists:categories,id|nullable',
             'status' => 'sometimes|string|in:favorite,regular',
         ]);
 
